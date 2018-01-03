@@ -1,6 +1,13 @@
-# Jail Stack - front end
+# My react app boilerplate
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+
+Base on [Create React App](https://github.com/facebookincubator/create-react-app), and Integrate following feature:
+ * redux
+ * redux-thunk
+ * react-router-redux
+ * sass
+ * eslint-config-airbnb
 
 ## Reference
 
