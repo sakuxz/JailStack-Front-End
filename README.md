@@ -5,9 +5,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Base on [Create React App](https://github.com/facebookincubator/create-react-app), and Integrate following feature:
  * redux
  * redux-thunk
- * react-router-redux
+ * [react-router-redux](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux) for use with react-router 4.x
  * sass
  * eslint-config-airbnb
+ * Hot Reloading
 
 ## Reference
 
