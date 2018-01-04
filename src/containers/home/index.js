@@ -1,5 +1,6 @@
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -17,17 +18,27 @@ const Home = props => (
 
     <p>
       <button onClick={props.increment} disabled={props.isIncrementing}>Increment</button>
-      <button onClick={props.incrementAsync} disabled={props.isIncrementing}>Increment</button>
+      <button onClick={props.incrementAsync} disabled={props.isIncrementing}>
+        Increment Async
+      </button>
     </p>
 
     <p>
-      <button onClick={props.decrement} disabled={props.isDecrementing}>decrement</button>
-      <button onClick={props.decrementAsync} disabled={props.isDecrementing}>decrement</button>
+      <button onClick={props.decrement} disabled={props.isDecrementing}>Decrement</button>
+      <button onClick={props.decrementAsync} disabled={props.isDecrementing}>
+        Decrement Async
+      </button>
     </p>
 
     <button onClick={() => props.changePage()}>Go to about page via redux</button>
   </div>
 );
+
+Home.propTypes = {
+  count: PropTypes.number.isRequired,
+  isIncrementing: PropTypes.bool.isRequired,
+  isDecrementing: PropTypes.bool.isRequired,
+};
 
 const mapStateToProps = state => ({
   count: state.counter.count,
