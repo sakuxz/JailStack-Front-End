@@ -6,7 +6,6 @@
   },
   "rules": {
     "react/jsx-filename-extension": "off",
-    "global-require": "off",
     "react/prop-types": "off",
     "jsx-a11y/anchor-is-valid": [ "error", {
       "components": [ "Link" ],

@@ -21,7 +21,7 @@ registerServiceWorker();
 
 if (module.hot) {
   module.hot.accept('./containers/app', () => {
-    const NextApp = require('./containers/app/').default;
+    const NextApp = require('./containers/app/').default; // eslint-disable-line global-require
     ReactDOM.render(
       <Provider store={store}>
         <ConnectedRouter history={history}>

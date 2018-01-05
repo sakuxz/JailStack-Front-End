@@ -38,6 +38,11 @@ Home.propTypes = {
   count: PropTypes.number.isRequired,
   isIncrementing: PropTypes.bool.isRequired,
   isDecrementing: PropTypes.bool.isRequired,
+  increment: PropTypes.func.isRequired,
+  incrementAsync: PropTypes.func.isRequired,
+  decrement: PropTypes.func.isRequired,
+  decrementAsync: PropTypes.func.isRequired,
+  changePage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
