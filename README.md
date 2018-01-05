@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
+## Description
+
 Base on [Create React App](https://github.com/facebookincubator/create-react-app), and Integrate following feature:
  * redux
  * redux-thunk
@@ -10,6 +12,26 @@ Base on [Create React App](https://github.com/facebookincubator/create-react-app
  * sass
  * eslint-config-airbnb
  * Hot Reloading
+
+## How to use
+
+### Develop
+```sh
+yarn
+yarn start
+```
+
+### Check code style
+```sh
+yarn
+yarn test:eslint
+```
+
+### Build
+```sh
+yarn
+yarn build
+```
 
 ## Reference
 
