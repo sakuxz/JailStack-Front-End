@@ -17,4 +17,5 @@ Base on [Create React App](https://github.com/facebookincubator/create-react-app
  * [Hot Reloading + create-react-app](https://medium.com/superhighfives/hot-reloading-create-react-app-73297a00dcad)
  * [Create React App: Linting all the things](https://groundberry.github.io/development/2017/06/11/create-react-app-linting-all-the-things.html) 
  * [Getting started with create-react-app, Redux, React Router & Redux Thunk](https://medium.com/@notrab/getting-started-with-create-react-app-redux-react-router-redux-thunk-d6a19259f71f) 
- * [Getting Started with create-react-app + Yarn + Redux + React-Router + Aphrodite + React Hot Module Loader](https://blog.patricklu.net/getting-started-with-create-react-app-yarn-redux-react-router-aphrodite-react-hot-module-8c1f46d5ae93) 
+ * [Getting Started with create-react-app + Yarn + Redux + React-Router + Aphrodite + React Hot Module Loader](https://blog.patricklu.net/getting-started-with-create-react-app-yarn-redux-react-router-aphrodite-react-hot-module-8c1f46d5ae93)
+ * [A practical guide to Redux Form - ERIK RASMUSSEN](https://www.youtube.com/watch?v=ey7H8h4ERHg)
