@@ -1,11 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import axios from 'axios';
 import { ConnectedRouter } from 'react-router-redux';
 import store, { history } from './store';
 import App from './containers/app';
 import registerServiceWorker from './registerServiceWorker';
 import './index.scss';
+
+if (process.env.REACT_APP_API_SERVER) {
+  axios.defaults.baseURL = 'process.env.REACT_APP_API_SERVER';
+}
+if (localStorage.token) {
+  axios.defaults.headers.common.Authorization = localStorage.token;
+}
 
 ReactDOM.render(
   <Provider store={store}>
