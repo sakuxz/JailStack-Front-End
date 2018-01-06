@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import axios from 'axios';
 import { ConnectedRouter } from 'react-router-redux';
 import jquery from 'jquery';
+import 'ant-design-pro/dist/ant-design-pro.css';
 import store, { history } from './store';
 import App from './containers';
 import registerServiceWorker from './registerServiceWorker';

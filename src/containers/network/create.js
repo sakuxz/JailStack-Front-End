@@ -1,11 +1,10 @@
 import React from 'react';
-import { Form, Input, Button, Breadcrumb, Layout, Slider, Select } from 'antd';
+import { Form, Input, Button, Breadcrumb, Layout } from 'antd';
 
 const FormItem = Form.Item;
 const { Content } = Layout;
-const { Option } = Select;
 
-class CreateJailForm extends React.Component {
+class CreateNetworkForm extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -55,28 +54,14 @@ class CreateJailForm extends React.Component {
       },
     };
 
-    const marks = {
-      0: '0 GB',
-      16: '16 GB',
-      24: '24 GB',
-      32: '32 GB',
-      40: '40 GB',
-      50: {
-        style: {
-          color: '#f50',
-        },
-        label: <strong>50 GB</strong>,
-      },
-    };
-
     return (
       <div>
         <header className="breadcrumb-header">
           <Breadcrumb>
-            <Breadcrumb.Item>Jail</Breadcrumb.Item>
+            <Breadcrumb.Item>Network</Breadcrumb.Item>
             <Breadcrumb.Item>Create</Breadcrumb.Item>
           </Breadcrumb>
-          <h1>Create New Jail</h1>
+          <h1>Create New Network</h1>
         </header>
         <Content style={{
           margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
@@ -85,11 +70,11 @@ class CreateJailForm extends React.Component {
           <Form onSubmit={this.handleSubmit} style={{ maxWidth: 800 }}>
             <FormItem
               {...formItemLayout}
-              label="Hostname"
+              label="Netwokr Name"
             >
-              {getFieldDecorator('hostname', {
+              {getFieldDecorator('name', {
                 rules: [{
-                  required: true, message: 'Please input your hostname!',
+                  required: true, message: 'Please input your netwokr name!',
                 }],
               })(<Input />)}
             </FormItem>
@@ -105,45 +90,6 @@ class CreateJailForm extends React.Component {
                 }],
               })(<Input />)}
             </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="IP Addess"
-            >
-              {getFieldDecorator('ipp', {
-                rules: [
-                  { required: true, message: 'Please select a IP addess!' },
-                  { validator: this.checkIP },
-                ],
-              })(
-                <Select placeholder="Please select a IP address">
-                  <Option value="172.17.17.1">VPN</Option>
-                  <Option value="17.17.17.1">OpenShift</Option>
-                </Select>,
-                )}
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="Disk Quota"
-            >
-              {getFieldDecorator('quota', {
-                rules: [{
-                  required: true, message: 'Please input your SSH key!',
-                }],
-                initialValue: 10,
-              })(<Slider marks={marks} defaultValue={10} max={50} />)}
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="SSH key"
-            >
-              {getFieldDecorator('sshkey', {
-                rules: [{
-                  required: true, message: 'Please input your SSH key!',
-                }],
-              })(
-                <Input />,
-                )}
-            </FormItem>
             <FormItem {...tailFormItemLayout}>
               <Button type="primary" htmlType="submit">Create the Jail</Button>
             </FormItem>
@@ -154,4 +100,4 @@ class CreateJailForm extends React.Component {
   }
 }
 
-export default Form.create()(CreateJailForm);
+export default Form.create()(CreateNetworkForm);

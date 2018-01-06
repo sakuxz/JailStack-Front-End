@@ -1,8 +1,11 @@
 import React from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import { Route, Link } from 'react-router-dom';
+import Dashboard from '../dashboard';
 import Jail from '../jail';
 import JailCreate from '../jail/create';
+import Network from '../network';
+import NetworkCreate from '../network/create';
 import './index.scss';
 
 const { Header, Sider } = Layout;
@@ -49,13 +52,19 @@ class AppLayout extends React.Component {
                 </Link>
               </Menu.Item>
             </SubMenu>
-            <Menu.Item key="4" className={this.props.location.pathname === '/app/network' ? 'ant-menu-item-selected' : ''}>
-              <Link to="/app/network">
-                <Icon type="global" />
-                <span>Network</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="5" className={this.props.location.pathname === '/app/snapshot' ? 'ant-menu-item-selected' : ''}>
+            <SubMenu key="sub2" title={<span><Icon type="global" /><span>Network</span></span>}>
+              <Menu.Item key="4" className={this.props.location.pathname === '/app/network' ? 'ant-menu-item-selected' : ''}>
+                <Link to="/app/network">
+                  <span>list</span>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="5" className={this.props.location.pathname === '/app/network/create' ? 'ant-menu-item-selected' : ''}>
+                <Link to="/app/network/create">
+                  <span>create</span>
+                </Link>
+              </Menu.Item>
+            </SubMenu>
+            <Menu.Item key="6" className={this.props.location.pathname === '/app/snapshot' ? 'ant-menu-item-selected' : ''}>
               <Link to="/app/snapshot">
                 <Icon type="switcher" />
                 <span>Snapshot</span>
@@ -80,8 +89,11 @@ class AppLayout extends React.Component {
               </SubMenu>
             </Menu>
           </Header>
+          <Route exact path="/app" component={Dashboard} />
           <Route exact path="/app/jail" component={Jail} />
           <Route exact path="/app/jail/create" component={JailCreate} />
+          <Route exact path="/app/network" component={Network} />
+          <Route exact path="/app/network/create" component={NetworkCreate} />
         </Layout>
       </Layout>
     );
