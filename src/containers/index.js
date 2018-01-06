@@ -14,13 +14,10 @@ const App = () => (
       <Link to="/tutu">tutu</Link>
     </header> */}
 
-    {/* <main> */}
-    {process.env.REACT_APP_API_SERVER }
     <Route component={NoMatch} />
     <Route path="/login" component={Login} />
     <Route path="/register" component={Register} />
     <Route path="/app" component={Home} />
-    {/* </main> */}
   </div>
 );
 

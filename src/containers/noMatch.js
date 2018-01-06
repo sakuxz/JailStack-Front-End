@@ -11,7 +11,7 @@ const NoMatch = ({ user: { token } }) => (
     }}
     /> :
     <Redirect to={{
-      pathname: '/login',
+      pathname: '/app/jail',
     }}
     />
 );

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import axios from 'axios';
 import { ConnectedRouter } from 'react-router-redux';
+import jquery from 'jquery';
 import store, { history } from './store';
 import App from './containers';
 import registerServiceWorker from './registerServiceWorker';
@@ -14,6 +15,8 @@ if (process.env.REACT_APP_API_SERVER) {
 if (localStorage.token) {
   axios.defaults.headers.common.Authorization = localStorage.token;
 }
+
+window.$ = jquery;
 
 ReactDOM.render(
   <Provider store={store}>

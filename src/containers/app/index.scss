@@ -1,6 +1,21 @@
 .ant-layout-has-sider {
   height: 100vh;
+  .ant-layout-sider {
+    box-shadow: rgba(0, 21, 41, 0.35) 2px 0px 6px;
+  }
+  .ant-layout-header {
+    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  }
   .anticon.trigger {
     padding: 16px;
+  }
+  .breadcrumb-header {
+    margin: 2px 3px;
+    padding: 16px 32px 10px;
+    background: white;
+    h1 {
+      margin: 0;
+      font-size: 20px;
+    }
   }
 }

@@ -1,8 +1,12 @@
 import React from 'react';
 import { Layout, Menu, Icon } from 'antd';
+import { Route, Link } from 'react-router-dom';
+import Jail from '../jail';
+import JailCreate from '../jail/create';
 import './index.scss';
 
-const { Header, Sider, Content } = Layout;
+const { Header, Sider } = Layout;
+const { SubMenu } = Menu;
 
 class AppLayout extends React.Component {
   constructor(props) {
@@ -26,22 +30,36 @@ class AppLayout extends React.Component {
           collapsed={this.state.collapsed}
         >
           <div className="logo" />
-          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-            <Menu.Item key="1">
-              <Icon type="line-chart" />
-              <span>Dashboard</span>
+          <Menu theme="dark" mode="inline">
+            <Menu.Item key="1" className={this.props.location.pathname === '/app' ? 'ant-menu-item-selected' : ''}>
+              <Link to="/app">
+                <Icon type="line-chart" />
+                <span>Dashboard</span>
+              </Link>
             </Menu.Item>
-            <Menu.Item key="2">
-              <Icon type="code-o" />
-              <span>Jail</span>
+            <SubMenu key="sub1" title={<span><Icon type="code-o" /><span>Jail</span></span>}>
+              <Menu.Item key="2" className={this.props.location.pathname === '/app/jail' ? 'ant-menu-item-selected' : ''}>
+                <Link to="/app/jail">
+                  <span>list</span>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="3" className={this.props.location.pathname === '/app/jail/create' ? 'ant-menu-item-selected' : ''}>
+                <Link to="/app/jail/create">
+                  <span>create</span>
+                </Link>
+              </Menu.Item>
+            </SubMenu>
+            <Menu.Item key="4" className={this.props.location.pathname === '/app/network' ? 'ant-menu-item-selected' : ''}>
+              <Link to="/app/network">
+                <Icon type="global" />
+                <span>Network</span>
+              </Link>
             </Menu.Item>
-            <Menu.Item key="3">
-              <Icon type="global" />
-              <span>Setwork</span>
-            </Menu.Item>
-            <Menu.Item key="4">
-              <Icon type="switcher" />
-              <span>Snapshot</span>
+            <Menu.Item key="5" className={this.props.location.pathname === '/app/snapshot' ? 'ant-menu-item-selected' : ''}>
+              <Link to="/app/snapshot">
+                <Icon type="switcher" />
+                <span>Snapshot</span>
+              </Link>
             </Menu.Item>
           </Menu>
         </Sider>
@@ -52,13 +70,18 @@ class AppLayout extends React.Component {
               type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
               onClick={this.toggle}
             />
+            <Menu
+              mode="horizontal"
+              defaultSelectedKeys={['2']}
+              style={{ lineHeight: '63px', float: 'right' }}
+            >
+              <SubMenu title={<span><Icon type="user" />TuTu</span>}>
+                <Menu.Item key="setting:1">Logout</Menu.Item>
+              </SubMenu>
+            </Menu>
           </Header>
-          <Content style={{
-            margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
-            }}
-          >
-            Content
-          </Content>
+          <Route exact path="/app/jail" component={Jail} />
+          <Route exact path="/app/jail/create" component={JailCreate} />
         </Layout>
       </Layout>
     );
