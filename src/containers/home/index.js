@@ -1,65 +1,64 @@
-
 import React from 'react';
-import PropTypes from 'prop-types';
-import { push } from 'react-router-redux';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import {
-  increment,
-  incrementAsync,
-  decrement,
-  decrementAsync,
-} from '../../modules/counter';
+import { Layout, Menu, Icon } from 'antd';
+import './index.scss';
 
-const Home = props => (
-  <div>
-    <h1>Home</h1>
-    <p>Count: {props.count}</p>
+const { Header, Sider, Content } = Layout;
 
-    <p>
-      <button onClick={props.increment} disabled={props.isIncrementing}>Increment</button>
-      <button onClick={props.incrementAsync} disabled={props.isIncrementing}>
-        Increment Async
-      </button>
-    </p>
+class AppLayout extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      collapsed: false,
+    };
+    this.toggle = this.toggle.bind(this);
+  }
+  toggle() {
+    this.setState({
+      collapsed: !this.state.collapsed,
+    });
+  }
+  render() {
+    return (
+      <Layout>
+        <Sider
+          trigger={null}
+          collapsible
+          collapsed={this.state.collapsed}
+        >
+          <div className="logo" />
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+            <Menu.Item key="1">
+              <Icon type="user" />
+              <span>nav 1</span>
+            </Menu.Item>
+            <Menu.Item key="2">
+              <Icon type="video-camera" />
+              <span>nav 2</span>
+            </Menu.Item>
+            <Menu.Item key="3">
+              <Icon type="upload" />
+              <span>nav 3</span>
+            </Menu.Item>
+          </Menu>
+        </Sider>
+        <Layout>
+          <Header style={{ background: '#fff', padding: 0 }}>
+            <Icon
+              className="trigger"
+              type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+              onClick={this.toggle}
+            />
+          </Header>
+          <Content style={{
+            margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
+            }}
+          >
+            Content
+          </Content>
+        </Layout>
+      </Layout>
+    );
+  }
+}
 
-    <p>
-      <button onClick={props.decrement} disabled={props.isDecrementing}>Decrement</button>
-      <button onClick={props.decrementAsync} disabled={props.isDecrementing}>
-        Decrement Async
-      </button>
-    </p>
-
-    <button onClick={() => props.changePage()}>Go to about page via redux</button>
-  </div>
-);
-
-Home.propTypes = {
-  count: PropTypes.number.isRequired,
-  isIncrementing: PropTypes.bool.isRequired,
-  isDecrementing: PropTypes.bool.isRequired,
-  increment: PropTypes.func.isRequired,
-  incrementAsync: PropTypes.func.isRequired,
-  decrement: PropTypes.func.isRequired,
-  decrementAsync: PropTypes.func.isRequired,
-  changePage: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = state => ({
-  count: state.counter.count,
-  isIncrementing: state.counter.isIncrementing,
-  isDecrementing: state.counter.isDecrementing,
-});
-
-const mapDispatchToProps = dispatch => bindActionCreators({
-  increment,
-  incrementAsync,
-  decrement,
-  decrementAsync,
-  changePage: () => push('/about-us'),
-}, dispatch);
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Home);
+export default AppLayout;
