@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import axios from 'axios';
 import { ConnectedRouter } from 'react-router-redux';
 import store, { history } from './store';
-import App from './containers/app';
+import App from './containers';
 import registerServiceWorker from './registerServiceWorker';
 import './index.scss';
 
@@ -28,8 +28,8 @@ ReactDOM.render(
 registerServiceWorker();
 
 if (module.hot) {
-  module.hot.accept('./containers/app', () => {
-    const NextApp = require('./containers/app/').default; // eslint-disable-line global-require
+  module.hot.accept('./containers', () => {
+    const NextApp = require('./containers/').default; // eslint-disable-line global-require
     ReactDOM.render(
       <Provider store={store}>
         <ConnectedRouter history={history}>
