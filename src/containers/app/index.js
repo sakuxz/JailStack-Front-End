@@ -15,6 +15,7 @@ const App = () => (
     </header> */}
 
     {/* <main> */}
+    {process.env.REACT_APP_API_SERVER }
     <Route component={NoMatch} />
     <Route path="/login" component={Login} />
     <Route path="/register" component={Register} />
