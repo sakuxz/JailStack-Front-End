@@ -16,6 +16,22 @@ if (process.env.REACT_APP_API_SERVER) {
 if (localStorage.token) {
   axios.defaults.headers.common.Authorization = localStorage.token;
 }
+axios.interceptors.response.use(response => response,
+  (error) => {
+    const mes = error.response.data;
+    if (mes.error) {
+      alert(mes.error);
+    } else if (mes.errors) {
+      Object.values(mes.errors).forEach((element) => {
+        if (element.length > 0) {
+          alert(element[0]);
+        }
+      });
+    } else {
+      alert('server error please try again later.');
+    }
+    return Promise.reject(error);
+  });
 
 window.$ = jquery;
 

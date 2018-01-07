@@ -1,6 +1,12 @@
 import React from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import { Route, Link } from 'react-router-dom';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import {
+  logout,
+} from '../../modules/user';
 import Dashboard from '../dashboard';
 import Jail from '../jail';
 import JailCreate from '../jail/create';
@@ -83,8 +89,9 @@ class AppLayout extends React.Component {
               mode="horizontal"
               defaultSelectedKeys={['2']}
               style={{ lineHeight: '63px', float: 'right' }}
+              onClick={this.props.logout}
             >
-              <SubMenu title={<span><Icon type="user" />TuTu</span>}>
+              <SubMenu title={<span><Icon type="user" />{this.props.user.userName}</span>}>
                 <Menu.Item key="setting:1">Logout</Menu.Item>
               </SubMenu>
             </Menu>
@@ -100,4 +107,16 @@ class AppLayout extends React.Component {
   }
 }
 
-export default AppLayout;
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  logout,
+  push,
+}, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AppLayout);

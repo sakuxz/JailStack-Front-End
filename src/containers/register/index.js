@@ -1,6 +1,12 @@
 import React from 'react';
 import { Form, Input, Checkbox, Button, Card, Icon } from 'antd';
 import { Link } from 'react-router-dom';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import {
+  register,
+} from '../../modules/user';
 import './index.scss';
 
 const FormItem = Form.Item;
@@ -22,6 +28,7 @@ class RegistrationForm extends React.Component {
       if (err) return;
 
       console.log('Received values of form: ', values);
+      this.props.register(values);
     });
   }
   handleConfirmBlur(e) {
@@ -146,4 +153,16 @@ class RegistrationForm extends React.Component {
   }
 }
 
-export default Form.create()(RegistrationForm);
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  register,
+  push,
+}, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Form.create()(RegistrationForm));

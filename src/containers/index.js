@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import Home from './app';
 import Login from './login';
 import Register from './register';
-import NoMatch from './noMatch';
+// import NoMatch from './noMatch';
 
 const App = () => (
   <div>
@@ -14,7 +14,7 @@ const App = () => (
       <Link to="/tutu">tutu</Link>
     </header> */}
 
-    <Route component={NoMatch} />
+    {/* <Route component={NoMatch} /> */}
     <Route path="/login" component={Login} />
     <Route path="/register" component={Register} />
     <Route path="/app" component={Home} />
