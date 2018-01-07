@@ -2,7 +2,7 @@ import axios from 'axios';
 import { push } from 'react-router-redux';
 
 export const USER_LOGIN = 'user/USER_LOGIN';
-export const USER_LOGOUT = 'counter/USER_LOGOUT';
+export const USER_LOGOUT = 'user/USER_LOGOUT';
 
 const initialState = {
   userId: null,
@@ -14,6 +14,9 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case USER_LOGIN:
       localStorage.token = action.payload.token;
+      if (localStorage.token) {
+        axios.defaults.headers.common.Authorization = `Bearer ${localStorage.token}`;
+      }
       return {
         ...state,
         ...(action.payload),

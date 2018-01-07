@@ -9,21 +9,24 @@ import { Table, Breadcrumb, Layout, Button } from 'antd';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import {
+  updateNetworks,
+  deleteNetwork,
+} from '../../modules/network';
 
 const { Content } = Layout;
 
-const data = [{
-  key: '1',
-  name: 'VPN',
-  ip: '172.17.17.1',
-  owner: 'tutu',
-}, {
-  key: '2',
-  name: 'OpenShift',
-  ip: '172.17.17.2',
-  owner: 'tutu',
-}];
+// const data = [{
+//   key: '1',
+//   name: 'VPN',
+//   ip: '172.17.17.1',
+//   owner: 'tutu',
+// }, {
+//   key: '2',
+//   name: 'OpenShift',
+//   ip: '172.17.17.2',
+//   owner: 'tutu',
+// }];
 
 class App extends React.Component {
   constructor(props) {
@@ -31,6 +34,7 @@ class App extends React.Component {
     this.state = {
     };
     this.handleChange = this.handleChange.bind(this);
+    this.props.updateNetworks();
   }
   handleChange(pagination, filters, sorter) {
     console.log('Various parameters', pagination, filters, sorter);
@@ -53,9 +57,16 @@ class App extends React.Component {
     }, {
       title: 'Action',
       key: 'action',
-      render: () => (
+      render: (text, record) => (
         <span>
-          <Button type="danger" shape="circle" icon="delete" />
+          <Button
+            type="danger"
+            onClick={() => {
+              this.props.deleteNetwork(record.id);
+            }}
+            shape="circle"
+            icon="delete"
+          />`
         </span>
       ),
     }];
@@ -87,12 +98,12 @@ class App extends React.Component {
             }}
             onClick={() => {
               if (window.$('[href="#/app/network/create"]').length > 0) window.$('[href="#/app/network/create"]')[0].click();
-              else this.props.changePage('/app/network/create');
+              else this.props.push('/app/network/create');
             }}
           >
             Create
           </Button>
-          <Table columns={columns} dataSource={data} onChange={this.handleChange} />
+          <Table columns={columns} dataSource={this.props.networks} onChange={this.handleChange} />
         </Content>
 
       </div>
@@ -100,12 +111,19 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  user: state.user,
+  networks: state.network.networks,
+});
+
 const mapDispatchToProps = dispatch => bindActionCreators({
-  changePage: path => push(path),
+  push,
+  updateNetworks,
+  deleteNetwork,
 }, dispatch);
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(App);
 

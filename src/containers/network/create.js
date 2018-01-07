@@ -1,5 +1,11 @@
 import React from 'react';
 import { Form, Input, Button, Breadcrumb, Layout } from 'antd';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import {
+  createNetwork,
+} from '../../modules/network';
 
 const FormItem = Form.Item;
 const { Content } = Layout;
@@ -16,6 +22,7 @@ class CreateNetworkForm extends React.Component {
       if (err) return;
 
       console.log('Received values of form: ', values);
+      this.props.createNetwork(values);
     });
   }
   checkIP(rule, value, callback) { // eslint-disable-line class-methods-use-this
@@ -100,4 +107,16 @@ class CreateNetworkForm extends React.Component {
   }
 }
 
-export default Form.create()(CreateNetworkForm);
+const mapStateToProps = state => ({
+  user: state.user,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  createNetwork,
+  push,
+}, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Form.create()(CreateNetworkForm));

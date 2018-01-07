@@ -14,7 +14,7 @@ if (process.env.REACT_APP_API_SERVER) {
   axios.defaults.baseURL = 'process.env.REACT_APP_API_SERVER';
 }
 if (localStorage.token) {
-  axios.defaults.headers.common.Authorization = localStorage.token;
+  axios.defaults.headers.common.Authorization = `Bearer ${localStorage.token}`;
 }
 axios.interceptors.response.use(response => response,
   (error) => {

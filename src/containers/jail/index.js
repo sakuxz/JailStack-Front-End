@@ -133,7 +133,7 @@ class App extends React.Component {
             }}
             onClick={() => {
               if (window.$('[href="#/app/jail/create"]').length > 0) window.$('[href="#/app/jail/create"]')[0].click();
-              else this.props.changePage('/app/jail/create');
+              else this.props.push('/app/jail/create');
             }}
           >
             Create
@@ -147,7 +147,7 @@ class App extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-  changePage: path => push(path),
+  push,
 }, dispatch);
 
 export default connect(
