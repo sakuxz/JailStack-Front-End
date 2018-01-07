@@ -66,7 +66,7 @@ class App extends React.Component {
             }}
             shape="circle"
             icon="delete"
-          />`
+          />
         </span>
       ),
     }];

@@ -1,5 +1,14 @@
 import React from 'react';
 import { Form, Input, Button, Breadcrumb, Layout, Slider, Select } from 'antd';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import {
+  updateNetworks,
+} from '../../modules/network';
+import {
+  createJail,
+} from '../../modules/jail';
 
 const FormItem = Form.Item;
 const { Content } = Layout;
@@ -10,6 +19,7 @@ class CreateJailForm extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.checkIP = this.checkIP.bind(this);
+    this.props.updateNetworks();
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -17,6 +27,7 @@ class CreateJailForm extends React.Component {
       if (err) return;
 
       console.log('Received values of form: ', values);
+      this.props.createJail(values);
     });
   }
   checkIP(rule, value, callback) { // eslint-disable-line class-methods-use-this
@@ -97,27 +108,15 @@ class CreateJailForm extends React.Component {
               {...formItemLayout}
               label="IP Addess"
             >
-              {getFieldDecorator('ip', {
-                rules: [{
-                  required: true, message: 'Please input a IP addess!',
-                }, {
-                  validator: this.checkIP,
-                }],
-              })(<Input />)}
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="IP Addess"
-            >
-              {getFieldDecorator('ipp', {
+              {getFieldDecorator('ip_id', {
                 rules: [
                   { required: true, message: 'Please select a IP addess!' },
-                  { validator: this.checkIP },
                 ],
               })(
                 <Select placeholder="Please select a IP address">
-                  <Option value="172.17.17.1">VPN</Option>
-                  <Option value="17.17.17.1">OpenShift</Option>
+                  {
+                    this.props.networks.map(e => <Option value={e.id}>{e.name} - {e.ip}</Option>)
+                  }
                 </Select>,
                 )}
             </FormItem>
@@ -136,7 +135,7 @@ class CreateJailForm extends React.Component {
               {...formItemLayout}
               label="SSH key"
             >
-              {getFieldDecorator('sshkey', {
+              {getFieldDecorator('ssh_key', {
                 rules: [{
                   required: true, message: 'Please input your SSH key!',
                 }],
@@ -154,4 +153,18 @@ class CreateJailForm extends React.Component {
   }
 }
 
-export default Form.create()(CreateJailForm);
+const mapStateToProps = state => ({
+  user: state.user,
+  networks: state.network.networks,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  createJail,
+  updateNetworks,
+  push,
+}, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Form.create()(CreateJailForm));

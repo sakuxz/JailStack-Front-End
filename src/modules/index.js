@@ -4,6 +4,7 @@ import { reducer as formReducer } from 'redux-form';
 import counter from './counter';
 import user from './user';
 import network from './network';
+import jail from './jail';
 
 export default combineReducers({
   routing: routerReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   counter,
   user,
   network,
+  jail,
 });

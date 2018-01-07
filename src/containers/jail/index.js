@@ -9,39 +9,41 @@ import { Table, Breadcrumb, Layout, Button, Divider, Badge } from 'antd';
 import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
+import {
+  updateJails,
+} from '../../modules/jail';
 
 const { Content } = Layout;
 
-const data = [{
-  key: '1',
-  hostname: 'Brown',
-  ip: '32.12.17.159',
-  quota: 50,
-  status: 'running',
-  owner: 'tutu',
-}, {
-  key: '2',
-  hostname: 'Green',
-  ip: '42.12.17.159',
-  quota: 1024,
-  status: 'running',
-  owner: 'tutu',
-}, {
-  key: '3',
-  hostname: 'Black',
-  ip: '32.12.17.159',
-  quota: 2048,
-  status: 'running',
-  owner: 'tutu',
-}, {
-  key: '4',
-  hostname: 'Red',
-  ip: '32.12.17.159',
-  quota: 10,
-  status: 'running',
-  owner: 'tutu',
-}];
+// const data = [{
+//   key: '1',
+//   hostname: 'Brown',
+//   ip: '32.12.17.159',
+//   quota: 50,
+//   status: 'running',
+//   owner: 'tutu',
+// }, {
+//   key: '2',
+//   hostname: 'Green',
+//   ip: '42.12.17.159',
+//   quota: 1024,
+//   status: 'running',
+//   owner: 'tutu',
+// }, {
+//   key: '3',
+//   hostname: 'Black',
+//   ip: '32.12.17.159',
+//   quota: 2048,
+//   status: 'running',
+//   owner: 'tutu',
+// }, {
+//   key: '4',
+//   hostname: 'Red',
+//   ip: '32.12.17.159',
+//   quota: 10,
+//   status: 'running',
+//   owner: 'tutu',
+// }];
 
 class App extends React.Component {
   constructor(props) {
@@ -50,6 +52,7 @@ class App extends React.Component {
       // sortedInfo: null,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.props.updateJails();
   }
   handleChange(pagination, filters, sorter) {
     console.log('Various parameters', pagination, filters, sorter);
@@ -138,7 +141,7 @@ class App extends React.Component {
           >
             Create
           </Button>
-          <Table columns={columns} dataSource={data} onChange={this.handleChange} />
+          <Table columns={columns} dataSource={this.props.jails} onChange={this.handleChange} />
         </Content>
 
       </div>
@@ -146,12 +149,18 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  user: state.user,
+  jails: state.jail.jails,
+});
+
 const mapDispatchToProps = dispatch => bindActionCreators({
   push,
+  updateJails,
 }, dispatch);
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(App);
 
