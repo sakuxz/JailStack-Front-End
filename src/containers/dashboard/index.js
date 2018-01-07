@@ -4,11 +4,12 @@ import React from 'react';
 // import { push } from 'react-router-redux';
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
-import { Tooltip, Icon, Row, Col, Card, List } from 'antd';
+import { Tooltip, Icon, Row, Col, Card, List, Tabs } from 'antd';
 import { ChartCard, MiniProgress, WaterWave } from 'ant-design-pro/lib/Charts';
 // import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import axios from 'axios';
 import {
   updateNetworks,
 } from '../../modules/network';
@@ -17,16 +18,104 @@ import {
 } from '../../modules/jail';
 import './index.scss';
 
+const { TabPane } = Tabs;
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       // sortedInfo: null,
+      hostStatus: null,
     };
     // this.handleChange = this.handleChange.bind(this);
     this.props.updateNetworks();
     this.props.updateJails();
+    this.getHostStatus();
   }
+
+  getHostStatus() {
+    axios.get('/api/host/status').then((res) => {
+      const mes = res.data;
+      this.setState({
+        hostStatus: mes.data,
+      });
+    });
+  }
+
+  renderHostStatus() { // eslint-disable-line class-methods-use-this
+    if (!this.state.hostStatus) {
+      return null;
+    }
+    return (
+      <div>
+        <Tabs
+          defaultActiveKey={
+            this.state.hostStatus.clusters[0] ? this.state.hostStatus.clusters[0].name : 1}
+          className="dashboard-tabs"
+        >
+          {
+            this.state.hostStatus.clusters.map(e => (
+              <TabPane tab={e.name} key={e.name}>
+                <Row type="flex" justify="start" style={{ marginRight: 32 }} >
+                  <Col span={12}>
+                    <ChartCard
+                      style={{
+                        margin: 16,
+                      }}
+                      title="CPU Usage"
+                      action={<Tooltip title="指标说明"><Icon type="info-circle-o" /></Tooltip>}
+                      total={`${e.cpu}%`}
+                      contentHeight={46}
+                    >
+                      <MiniProgress percent={e.cpu} strokeWidth={8} target={80} />
+                    </ChartCard>
+                  </Col>
+                  <Col span={12}>
+                    <ChartCard
+                      style={{
+                        margin: 16,
+                      }}
+                      title="Memory Usage"
+                      action={<Tooltip title="指标说明"><Icon type="info-circle-o" /></Tooltip>}
+                      total={`${e.mem}%`}
+                      contentHeight={46}
+                    >
+                      <MiniProgress
+                        percent={e.mem}
+                        strokeWidth={8}
+                        target={80}
+                        color="rgb(183, 194, 19)"
+                      />
+                    </ChartCard>
+                  </Col>
+                </Row>
+              </TabPane>),
+            )
+          }
+        </Tabs>,
+        <ChartCard
+          style={{
+            margin: 16,
+            marginRight: 48,
+          }}
+          title="Disk Usage"
+          action={<Tooltip title="指标说明"><Icon type="info-circle-o" /></Tooltip>}
+          total={`${this.state.hostStatus.disk}%`}
+          contentHeight={46}
+        >
+          <WaterWave
+            height={110}
+            percent={this.state.hostStatus.disk}
+            style={{
+              float: 'right',
+              marginRight: 22,
+            }}
+          />
+        </ChartCard>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div>
@@ -64,65 +153,12 @@ class App extends React.Component {
         <Card style={{ margin: '12px 24px' }}>
           <Row type="flex" justify="start">
             <Col span={16}>
-
-              <Row type="flex" justify="start" style={{ marginRight: 32 }} >
-                <Col span={12}>
-                  <ChartCard
-                    style={{
-                      margin: 16,
-                    }}
-                    title="CPU Usage"
-                    action={<Tooltip title="指标说明"><Icon type="info-circle-o" /></Tooltip>}
-                    total="78%"
-                    contentHeight={46}
-                  >
-                    <MiniProgress percent={78} strokeWidth={8} target={80} />
-                  </ChartCard>
-                </Col>
-                <Col span={12}>
-                  <ChartCard
-                    style={{
-                      margin: 16,
-                    }}
-                    title="Memory Usage"
-                    action={<Tooltip title="指标说明"><Icon type="info-circle-o" /></Tooltip>}
-                    total="28%"
-                    contentHeight={46}
-                  >
-                    <MiniProgress
-                      percent={28}
-                      strokeWidth={8}
-                      target={80}
-                      color="rgb(183, 194, 19)"
-                    />
-                  </ChartCard>
-                </Col>
-              </Row>
-
-              <ChartCard
-                style={{
-                  margin: 16,
-                  marginRight: 48,
-                }}
-                title="Disk Usage"
-                action={<Tooltip title="指标说明"><Icon type="info-circle-o" /></Tooltip>}
-                total="12%"
-                contentHeight={46}
-              >
-                <WaterWave
-                  height={110}
-                  percent={12}
-                  style={{
-                    float: 'right',
-                    marginRight: 22,
-                  }}
-                />
-              </ChartCard>
+              { this.renderHostStatus() }
             </Col>
             <Col span={8}>
               <h2>操作紀錄</h2>
               <List style={{
-                maxHeight: 326,
+                maxHeight: 395,
                 overflow: 'auto',
                 paddingRight: 12,
               }}
