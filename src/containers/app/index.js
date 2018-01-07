@@ -7,6 +7,12 @@ import { connect } from 'react-redux';
 import {
   logout,
 } from '../../modules/user';
+import {
+  updateNetworks,
+} from '../../modules/network';
+import {
+  updateJails,
+} from '../../modules/jail';
 import Dashboard from '../dashboard';
 import Jail from '../jail';
 import JailCreate from '../jail/create';
@@ -24,6 +30,8 @@ class AppLayout extends React.Component {
       collapsed: false,
     };
     this.toggle = this.toggle.bind(this);
+    this.props.updateNetworks();
+    this.props.updateJails();
   }
   toggle() {
     this.setState({
@@ -109,11 +117,15 @@ class AppLayout extends React.Component {
 
 const mapStateToProps = state => ({
   user: state.user,
+  networks: state.network.networks,
+  jails: state.jail.jails,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   logout,
   push,
+  updateJails,
+  updateNetworks,
 }, dispatch);
 
 export default connect(

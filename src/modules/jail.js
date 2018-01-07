@@ -36,13 +36,13 @@ export const updateJails = () => (
   (dispatch) => {
     axios.get('/api/jail').then((res) => {
       const mes = res.data;
-      console.log(mes);
       const jails = mes.data.map(e => ({
         id: e.id,
         hostname: e.hostname,
         ip: e.ip ? e.ip.ip : '1.1.1.1',
         owner: e.owner.name,
         quota: e.quota,
+        status: e.status,
       }));
       dispatch({
         type: UPDATE_JAILS,
@@ -62,6 +62,28 @@ export const deleteJail = id => (
         updateJails()(dispatch);
       });
     }
+  }
+);
+
+export const startJail = id => (
+  (dispatch) => {
+    axios.post(`/api/control/jail/${id}`, {
+      status: true,
+    }).then(() => {
+      alert('start success');
+      updateJails()(dispatch);
+    });
+  }
+);
+
+export const stopJail = id => (
+  (dispatch) => {
+    axios.post(`/api/control/jail/${id}`, {
+      status: false,
+    }).then(() => {
+      alert('stop success');
+      updateJails()(dispatch);
+    });
   }
 );
 

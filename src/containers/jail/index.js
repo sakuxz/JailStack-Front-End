@@ -11,6 +11,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   updateJails,
+  deleteJail,
+  startJail,
+  stopJail,
 } from '../../modules/jail';
 
 const { Content } = Layout;
@@ -84,8 +87,8 @@ class App extends React.Component {
         let status;
         if (text === 'running') {
           status = <Badge status="success" text="running" />;
-        } else if (text === 'stoped') {
-          status = <Badge status="warning" text="stoped" />;
+        } else if (text === 'stopped') {
+          status = <Badge status="warning" text="stopped" />;
         } else {
           status = <Badge status="error" text="error" />;
         }
@@ -100,11 +103,35 @@ class App extends React.Component {
       key: 'action',
       render: (text, record) => (
         <span>
-          <Button type="primary" shape="circle" icon="caret-right" disabled={record.status === 'running'} />
+          <Button
+            type="primary"
+            shape="circle"
+            icon="caret-right"
+            disabled={record.status === 'running'}
+            onClick={() => {
+              this.props.startJail(record.id);
+            }}
+          />
           <Divider type="vertical" />
-          <Button type="warning" shape="circle" icon="pause" disabled={record.status === 'stoped'} />
+          <Button
+            type="warning"
+            shape="circle"
+            icon="pause"
+            disabled={record.status === 'stopped'}
+            onClick={() => {
+              this.props.stopJail(record.id);
+            }}
+          />
           <Divider type="vertical" />
-          <Button type="danger" shape="circle" icon="delete" />
+          <Button
+            type="danger"
+            shape="circle"
+            icon="delete"
+            disabled={record.status === 'running'}
+            onClick={() => {
+              this.props.deleteJail(record.id);
+            }}
+          />
         </span>
       ),
     }];
@@ -157,6 +184,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => bindActionCreators({
   push,
   updateJails,
+  deleteJail,
+  startJail,
+  stopJail,
 }, dispatch);
 
 export default connect(

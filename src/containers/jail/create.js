@@ -115,7 +115,9 @@ class CreateJailForm extends React.Component {
               })(
                 <Select placeholder="Please select a IP address">
                   {
-                    this.props.networks.map(e => <Option value={e.id}>{e.name} - {e.ip}</Option>)
+                    this.props.networks
+                      .filter(e => !e.isUsed)
+                      .map(e => <Option value={e.id}>{e.name} - {e.ip}</Option>)
                   }
                 </Select>,
                 )}

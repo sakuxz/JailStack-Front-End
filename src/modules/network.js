@@ -41,6 +41,7 @@ export const updateNetworks = () => (
         name: e.name,
         ip: e.ip,
         owner: e.owner.name,
+        isUsed: !!e.jail,
       }));
       dispatch({
         type: UPDATE_NETWORKS,

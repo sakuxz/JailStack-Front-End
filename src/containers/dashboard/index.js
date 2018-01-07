@@ -7,9 +7,14 @@ import React from 'react';
 import { Tooltip, Icon, Row, Col, Card, List } from 'antd';
 import { ChartCard, MiniProgress, WaterWave } from 'ant-design-pro/lib/Charts';
 // import { Link } from 'react-router-dom';
-import { push } from 'react-router-redux';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import {
+  updateNetworks,
+} from '../../modules/network';
+import {
+  updateJails,
+} from '../../modules/jail';
 import './index.scss';
 
 class App extends React.Component {
@@ -19,6 +24,8 @@ class App extends React.Component {
       // sortedInfo: null,
     };
     // this.handleChange = this.handleChange.bind(this);
+    this.props.updateNetworks();
+    this.props.updateJails();
   }
   render() {
     return (
@@ -29,7 +36,7 @@ class App extends React.Component {
             <Card style={{ margin: 24 }} >
               <div className="card-statistics">
                 <Icon type="code-o" />
-                <span className="card-digital">12</span>
+                <span className="card-digital">{this.props.jails.length}</span>
                 <span className="card-entry">Jails</span>
               </div>
             </Card>
@@ -38,7 +45,7 @@ class App extends React.Component {
             <Card style={{ margin: 24 }} >
               <div className="card-statistics">
                 <Icon type="global" />
-                <span className="card-digital">12</span>
+                <span className="card-digital">{this.props.networks.length}</span>
                 <span className="card-entry">Network</span>
               </div>
             </Card>
@@ -179,12 +186,18 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  networks: state.network.networks,
+  jails: state.jail.jails,
+});
+
 const mapDispatchToProps = dispatch => bindActionCreators({
-  changePage: path => push(path),
+  updateJails,
+  updateNetworks,
 }, dispatch);
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(App);
 
