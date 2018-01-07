@@ -1,4 +1,4 @@
-# My react app boilerplate
+# JailStack Front-End
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
