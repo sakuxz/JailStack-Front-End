@@ -27,7 +27,9 @@ export const createJail = jail => (
     }).then(() => {
       // const mes = res.data;
       // console.log(mes);
-      dispatch(push('/app/jail'));
+      // dispatch(push('/app/jail'));
+      if (window.$('[href="#/app/jail"]').length > 0) window.$('[href="#/app/jail"]')[0].click();
+      else dispatch(push('/app/jail'));
     });
   }
 );

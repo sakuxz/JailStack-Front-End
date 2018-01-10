@@ -98,7 +98,7 @@ class CreateNetworkForm extends React.Component {
               })(<Input />)}
             </FormItem>
             <FormItem {...tailFormItemLayout}>
-              <Button type="primary" htmlType="submit">Create the Jail</Button>
+              <Button type="primary" htmlType="submit">Create the Network</Button>
             </FormItem>
           </Form>
         </Content>

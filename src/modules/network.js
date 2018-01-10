@@ -27,7 +27,9 @@ export const createNetwork = network => (
     }).then(() => {
       // const mes = res.data;
       // console.log(mes);
-      dispatch(push('/app/network'));
+      // dispatch(push('/app/network'));
+      if (window.$('[href="#/app/network"]').length > 0) window.$('[href="#/app/network"]')[0].click();
+      else dispatch(push('/app/network'));
     });
   }
 );
