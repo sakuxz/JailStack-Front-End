@@ -4,7 +4,7 @@ import React from 'react';
 // import { push } from 'react-router-redux';
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux';
-import { Tooltip, Icon, Row, Col, Card, List, Tabs } from 'antd';
+import { Tooltip, Icon, Row, Col, Card, List, Tabs, Spin } from 'antd';
 import { ChartCard, MiniProgress, WaterWave } from 'ant-design-pro/lib/Charts';
 // import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -42,9 +42,17 @@ class App extends React.Component {
     });
   }
 
-  renderHostStatus() { // eslint-disable-line class-methods-use-this
+  renderHostStatus() {
     if (!this.state.hostStatus) {
-      return null;
+      return (
+        <div style={{
+          textAlign: 'center',
+          paddingTop: '3em',
+        }}
+        >
+          <Spin />
+        </div>
+      );
     }
     return (
       <div>
@@ -165,50 +173,50 @@ class App extends React.Component {
               >
                 <List.Item>
                   <List.Item.Meta
-                    title={<a href="https://ant.design">tutu</a>}
+                    title={<a href="/">tutu</a>}
                     description="dsdsds@dss.ds"
                   />
-                  <div>Content</div>
+                  <div>Start Jail tutu</div>
                 </List.Item>
                 <List.Item>
                   <List.Item.Meta
-                    title={<a href="https://ant.design">tutu</a>}
+                    title={<a href="/">tutu</a>}
                     description="dsdsds@dss.ds"
                   />
-                  <div>Content</div>
+                  <div>Create Jail tutu</div>
                 </List.Item>
                 <List.Item>
                   <List.Item.Meta
-                    title={<a href="https://ant.design">tutu</a>}
+                    title={<a href="/">tutu</a>}
                     description="dsdsds@dss.ds"
                   />
-                  <div>Content</div>
+                  <div>Create Network tutu</div>
                 </List.Item>
                 <List.Item>
                   <List.Item.Meta
-                    title={<a href="https://ant.design">tutu</a>}
-                    description="dsdsds@dss.ds"
+                    title={<a href="/">HWLin</a>}
+                    description="hwlin1414@cs.nctu.edu.tw"
                   />
-                  <div>Content</div>
+                  <div>Shapshot Jail hwlin</div>
                 </List.Item>
                 <List.Item>
                   <List.Item.Meta
-                    title={<a href="https://ant.design">tutu</a>}
-                    description="dsdsds@dss.ds"
+                    title={<a href="/">HWLin</a>}
+                    description="hwlin1414@cs.nctu.edu.tw"
                   />
-                  <div>Content</div>
+                  <div>Start Jail hwlin</div>
                 </List.Item>
                 <List.Item>
                   <List.Item.Meta
-                    title={<a href="https://ant.design">tutu</a>}
-                    description="dsdsds@dss.ds"
+                    title={<a href="/">HWLin</a>}
+                    description="hwlin1414@cs.nctu.edu.tw"
                   />
-                  <div>Content</div>
+                  <div>Stop Jail hwlin</div>
                 </List.Item>
                 <List.Item>
                   <List.Item.Meta
-                    title={<a href="https://ant.design">tutu</a>}
-                    description="dsdsds@dss.ds"
+                    title={<a href="/">HWLin</a>}
+                    description="hwlin1414@cs.nctu.edu.tw"
                   />
                   <div>Content</div>
                 </List.Item>

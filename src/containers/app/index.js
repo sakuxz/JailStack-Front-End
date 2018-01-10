@@ -18,6 +18,8 @@ import Jail from '../jail';
 import JailCreate from '../jail/create';
 import Network from '../network';
 import NetworkCreate from '../network/create';
+import Snapshot from '../snapshot';
+import SnapshotCreate from '../snapshot/create';
 import './index.scss';
 
 const { Header, Sider } = Layout;
@@ -78,12 +80,18 @@ class AppLayout extends React.Component {
                 </Link>
               </Menu.Item>
             </SubMenu>
-            <Menu.Item key="6" className={this.props.location.pathname === '/app/snapshot' ? 'ant-menu-item-selected' : ''}>
-              <Link to="/app/snapshot">
-                <Icon type="switcher" />
-                <span>Snapshot</span>
-              </Link>
-            </Menu.Item>
+            <SubMenu key="sub3" title={<span><Icon type="switcher" /><span>Snapshot</span></span>}>
+              <Menu.Item key="6" className={this.props.location.pathname === '/app/snapshot' ? 'ant-menu-item-selected' : ''}>
+                <Link to="/app/snapshot">
+                  <span>list</span>
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="7" className={this.props.location.pathname === '/app/snapshot/create' ? 'ant-menu-item-selected' : ''}>
+                <Link to="/app/snapshot/create">
+                  <span>create</span>
+                </Link>
+              </Menu.Item>
+            </SubMenu>
           </Menu>
         </Sider>
         <Layout>
@@ -109,6 +117,8 @@ class AppLayout extends React.Component {
           <Route exact path="/app/jail/create" component={JailCreate} />
           <Route exact path="/app/network" component={Network} />
           <Route exact path="/app/network/create" component={NetworkCreate} />
+          <Route exact path="/app/snapshot" component={Snapshot} />
+          <Route exact path="/app/snapshot/create" component={SnapshotCreate} />
         </Layout>
       </Layout>
     );
